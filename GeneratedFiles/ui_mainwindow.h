@@ -18,11 +18,9 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
-#include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -36,7 +34,6 @@ public:
     QLabel *passwdLab;
     QLineEdit *passwdVal;
     QLabel *loginRCLab;
-    QLabel *loginRCimg;
     QLineEdit *loginRCVal;
     QPushButton *startButton;
     QPushButton *topButton;
@@ -60,10 +57,9 @@ public:
     QLabel *ticketIntervalVal;
     QLabel *label_5;
     QLabel *label_6;
-    QLabel *ticketRCimg;
+    QLabel *lblCode1;
+    QLabel *lblCode2;
     QLineEdit *ticketRCVal;
-    QMenuBar *menuBar;
-    QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -89,12 +85,11 @@ public:
         loginRCLab = new QLabel(centralWidget);
         loginRCLab->setObjectName(QStringLiteral("loginRCLab"));
         loginRCLab->setGeometry(QRect(30, 190, 61, 21));
-        loginRCimg = new QLabel(centralWidget);
-        loginRCimg->setObjectName(QStringLiteral("loginRCimg"));
-        loginRCimg->setGeometry(QRect(100, 180, 91, 41));
         loginRCVal = new QLineEdit(centralWidget);
         loginRCVal->setObjectName(QStringLiteral("loginRCVal"));
-        loginRCVal->setGeometry(QRect(210, 190, 41, 20));
+        loginRCVal->setGeometry(QRect(200, 190, 61, 20));
+        loginRCVal->setMaximumSize(QSize(61, 20));
+        loginRCVal->setMaxLength(4);
         startButton = new QPushButton(centralWidget);
         startButton->setObjectName(QStringLiteral("startButton"));
         startButton->setGeometry(QRect(540, 190, 75, 23));
@@ -169,25 +164,29 @@ public:
         label_6 = new QLabel(centralWidget);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(280, 190, 61, 21));
-        ticketRCimg = new QLabel(centralWidget);
-        ticketRCimg->setObjectName(QStringLiteral("ticketRCimg"));
-        ticketRCimg->setGeometry(QRect(350, 180, 81, 41));
+        lblCode1 = new QLabel(centralWidget);
+        lblCode1->setObjectName(QStringLiteral("lblCode1"));
+        lblCode1->setGeometry(QRect(100, 191, 71, 31));
+        lblCode2 = new QLabel(centralWidget);
+        lblCode2->setObjectName(QStringLiteral("lblCode2"));
+        lblCode2->setGeometry(QRect(350, 190, 71, 31));
         ticketRCVal = new QLineEdit(centralWidget);
         ticketRCVal->setObjectName(QStringLiteral("ticketRCVal"));
-        ticketRCVal->setGeometry(QRect(450, 190, 41, 20));
+        ticketRCVal->setEnabled(true);
+        ticketRCVal->setGeometry(QRect(450, 190, 61, 20));
+        ticketRCVal->setAcceptDrops(true);
+        ticketRCVal->setMaxLength(4);
+        ticketRCVal->setFrame(true);
+        ticketRCVal->setDragEnabled(false);
         MainWindow->setCentralWidget(centralWidget);
-        menuBar = new QMenuBar(MainWindow);
-        menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 768, 18));
-        MainWindow->setMenuBar(menuBar);
-        mainToolBar = new QToolBar(MainWindow);
-        mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-        MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
+        QObject::connect(startButton, SIGNAL(clicked()), MainWindow, SLOT(startbtnSlot()));
+        QObject::connect(loginRCVal, SIGNAL(textEdited(QString)), MainWindow, SLOT(commitStep1()));
+        QObject::connect(ticketRCVal, SIGNAL(textEdited(QString)), MainWindow, SLOT(commitStep2()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -198,7 +197,6 @@ public:
         usernameLab->setText(QApplication::translate("MainWindow", "\347\224\250\346\210\267\345\220\215", 0));
         passwdLab->setText(QApplication::translate("MainWindow", "\345\257\206\347\240\201", 0));
         loginRCLab->setText(QApplication::translate("MainWindow", "\347\231\273\345\275\225\351\252\214\350\257\201\347\240\201", 0));
-        loginRCimg->setText(QString());
         startButton->setText(QApplication::translate("MainWindow", "\350\207\252\345\212\250\346\212\242\347\245\250", 0));
         topButton->setText(QApplication::translate("MainWindow", "\345\201\234\346\255\242\346\212\242\347\245\250", 0));
         startStationLab->setText(QApplication::translate("MainWindow", "\350\265\267\345\247\213\347\253\231", 0));
@@ -217,7 +215,8 @@ public:
         ticketIntervalVal->setText(QString());
         label_5->setText(QApplication::translate("MainWindow", "ms", 0));
         label_6->setText(QApplication::translate("MainWindow", "\350\256\242\345\215\225\351\252\214\350\257\201\347\240\201", 0));
-        ticketRCimg->setText(QString());
+        lblCode1->setText(QString());
+        lblCode2->setText(QString());
     } // retranslateUi
 
 };

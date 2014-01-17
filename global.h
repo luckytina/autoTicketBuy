@@ -20,6 +20,7 @@ class global
   public:
     static QString responseStr;
     static QNetworkAccessManager *qnam;
+	static int iStep;
 };
 
 #endif // GLOBAL_H

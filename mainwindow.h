@@ -18,7 +18,11 @@ public:
     QNetworkAccessManager *qnam;
 
 private slots:
-    void on_startButton_clicked();
+	void startbtnSlot();
+
+	void commitStep1();
+
+	void commitStep2();
 
     void on_topButton_clicked();
 
@@ -29,7 +33,7 @@ private slots:
     void on_ticketRCVal_textEdited(const QString &arg1);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow ui;
 
 };
 
